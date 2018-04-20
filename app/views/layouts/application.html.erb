@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Perro</title>
+    <%= csrf_meta_tags %>
+
+    <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload' %>
+    <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
+  </head>
+
+  <body>
+    <% if user_signed_in? %>
+      <p class="notice"><%= notice %></p>
+      <p class="alert"><%= alert %></p>
+      <%= link_to 'SignOut', destroy_user_session_path, method: :delete %>
+      <%= link_to 'products', products_path %>
+      <%= link_to 'orders', orders_path %>
+    <% end %>
+    <%= yield %>
+  </body>
+</html>

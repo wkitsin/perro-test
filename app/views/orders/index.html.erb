@@ -1,0 +1,21 @@
+
+<h1>Orders</h1>
+<% @orders['orders'].each_with_index do |i, index| %>
+  <h3>Order: <%= i['name'] %> </h3>
+  <% i['line_items'].each do |j| %>
+    product: <%= j['title'] %>
+    <br>
+    price: <%= j['price'] %>
+    <br>
+    quantity: <%= j['quantity'] %>
+    <br>
+    <br>
+  <% end %>
+  <p style='font-weight:bold'>Total Price after tax: <%= i['total_price'] %></p>
+  <% if @profit[index] == i['total_price'].to_f %>
+    <p>Please Enter cost price before determining you profit</p>
+  <% else %>
+    Profit: <%= @profit[index] %>
+  <% end %>
+  <hr>
+<% end %>

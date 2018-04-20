@@ -1,0 +1,23 @@
+
+<h1>Products</h1>
+<% @products.each do |i| %>
+  Title: <%= i.title %>
+  <br>
+  Retail Price: <%= i.retail_price %>
+  <br>
+  <% if i.cost_price == nil %>
+    Please Enter Cost price:
+    <%= form_for @product, url: product_path(i.id), method: :patch do |f| %>
+      <%= f.number_field :cost_price, step: 0.1 %>
+      <%= f.submit 'Submit' %>
+    <% end %>
+  <% else %>
+    Cost Price: <%= i.cost_price %>
+  <% end %>
+  <br>
+  Vendor: <%= i.vendor %>
+  <br>
+  <br>
+<% end %>
+
+<hr>
