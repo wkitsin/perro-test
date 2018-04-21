@@ -42,10 +42,6 @@ class ProductsController < ApplicationController
   end
 
   def product_query
-    # products_url = "https://#{ENV['SHOPIFY_SHOP_NAME']}.myshopify.com/admin/products.json"
-    # products = open(products_url, :http_basic_authentication=>["#{ENV['SHOPIFY_API_KEY']}", "#{ENV['SHOPIFY_SECRET']}"])
-    # products_json = JSON.load(products)
-
     shop_url = "https://#{ENV['SHOPIFY_API_KEY']}:#{ENV['SHOPIFY_SECRET']}@#{ENV['SHOPIFY_SHOP_NAME']}.myshopify.com/admin"
     ShopifyAPI::Base.site = shop_url
     shop = ShopifyAPI::Shop.current
