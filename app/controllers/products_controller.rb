@@ -29,22 +29,23 @@ class ProductsController < ApplicationController
 
   # finds whether the products is already in the database, if no, create the product
   def create_api(products)
-    products['products'].each do |i|
-      if Product.find_by_product_id(i['variants'][0]['product_id']) == nil
+    products.each do |i|
+      if Product.find_by_product_id(i.id) == nil
         Product.create(
-          product_id: i['variants'][0]['product_id'],
-          title: i['title'],
-          vendor: i['vendor'],
-          retail_price: i['variants'][0]['price']
+          product_id: i.id,
+          title: i.title,
+          vendor: i.vendor,
+          retail_price: i.variants[0].price
         )
       end
     end
   end
 
   def product_query
-    products_url = "https://#{ENV['SHOPIFY_SHOP_NAME']}.myshopify.com/admin/products.json"
-    products = open(products_url, :http_basic_authentication=>["#{ENV['SHOPIFY_API_KEY']}", "#{ENV['SHOPIFY_SECRET']}"])
-    products_json = JSON.load(products)
+    shop_url = "https://#{ENV['SHOPIFY_API_KEY']}:#{ENV['SHOPIFY_SECRET']}@#{ENV['SHOPIFY_SHOP_NAME']}.myshopify.com/admin"
+    ShopifyAPI::Base.site = shop_url
+    shop = ShopifyAPI::Shop.current
+    products_json = ShopifyAPI::Product.all
 
     return products_json
   end
